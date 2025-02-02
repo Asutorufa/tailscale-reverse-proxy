@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/tls"
 	"encoding/json"
 	"flag"
 	"log"
@@ -99,6 +100,11 @@ func main() {
 
 		go func() {
 			rs := httputil.NewSingleHostReverseProxy(url)
+			rs.Transport = &http.Transport{
+				TLSClientConfig: &tls.Config{
+					InsecureSkipVerify: true,
+				},
+			}
 			err := http.Serve(ln, rs)
 			if err != nil {
 				log.Fatal(err)
