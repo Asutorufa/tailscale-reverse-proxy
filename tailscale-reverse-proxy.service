@@ -1,0 +1,13 @@
+[Unit]
+Description=tailscale reverse proxy
+After=network.target
+
+[Service]
+Type=exec
+ExecStart=/bin/bash -c "~/.local/bin/tailscale-reverse-proxy"
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=default.target
+    
